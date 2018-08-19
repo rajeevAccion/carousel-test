@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faChevronRight, faChevronLeft} from '@fortawesome/free-solid-svg-icons';
 
 import {Carousel} from 'modules';
 import {fetchImages} from 'redux/modules';
 import './App.css';
+
+library.add(faChevronRight, faChevronLeft);
 
 class App extends Component {
   // state = {
