@@ -13,6 +13,9 @@ class Carousel extends Component {
     numOfSlidesToScroll: 4,
   };
 
+  /**
+   * handles left/right arrow key press to move item in carousel
+   */
   onKeyDown = e => {
     const {keyCode} = e;
     const leftarrow = keyCode === 37;
@@ -24,6 +27,9 @@ class Carousel extends Component {
     }
   };
 
+  /**
+   * execute on window resize to reset no. of slides
+   */
   onWindowResize = () => {
     this.checkNoOfSlideToScroll();
   };
@@ -39,6 +45,9 @@ class Carousel extends Component {
     window.removeEventListener('keydown', this.onKeyDown);
   }
 
+  /**
+   * reset no. of slide to scroll on window resize event and component mount
+   */
   checkNoOfSlideToScroll = () => {
     let numOfSlidesToScroll;
     if (window.innerWidth <= 768) {
@@ -53,6 +62,9 @@ class Carousel extends Component {
     }
   };
 
+  /**
+   * calculates total width to slide and transition timing
+   */
   widthAndTimeToScroll = () => {
     const carouselViewport = this.carouselViewport.current;
     const {numOfSlidesToScroll} = this.state;
