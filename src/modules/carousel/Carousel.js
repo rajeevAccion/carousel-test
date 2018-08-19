@@ -6,14 +6,6 @@ import scrollTo from './animate';
 import './Carousel.css';
 
 class Carousel extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.carouselViewport = React.createRef();
-  //   this.state = {
-  //     numOfSlidesToScroll: 4,
-  //   };
-  // }
-
   carouselViewport = React.createRef();
   state = {
     numOfSlidesToScroll: 4,
@@ -72,18 +64,15 @@ class Carousel extends Component {
       };
     }
   };
+
+  /**
+   * handle prev button click event
+   */
   onPrevClickHanlder = () => {
     const carouselViewport = this.carouselViewport.current;
     const {widthToScroll, timeToScroll} = this.widthAndTimeToScroll();
-
-    // const {numOfSlidesToScroll} = this.state;
-    // const slideWidth = 250;
     const newPosition = carouselViewport.scrollLeft - widthToScroll;
-    // const timeToScrollOneSlide = 200;
-    // const totalTimeToScroll = Math.min(
-    //   timeToScrollOneSlide * numOfSlidesToScroll,
-    //   500
-    // );
+
     const params = {
       element: carouselViewport,
       to: newPosition,
@@ -92,17 +81,14 @@ class Carousel extends Component {
     };
     scrollTo(params);
   };
+
+  /**
+   * handle next button click event
+   */
   onNextClickHanlder = () => {
     const carouselViewport = this.carouselViewport.current;
     const {widthToScroll, timeToScroll} = this.widthAndTimeToScroll();
-    // const {numOfSlidesToScroll} = this.state;
-    // const slideWidth = 250;
     const newPosition = carouselViewport.scrollLeft + widthToScroll;
-    // const timeToScrollOneSlide = 200;
-    // const totalTimeToScroll = Math.min(
-    //   timeToScrollOneSlide * numOfSlidesToScroll,
-    //   500
-    // );
     const params = {
       element: carouselViewport,
       to: newPosition,
@@ -116,21 +102,21 @@ class Carousel extends Component {
     return (
       <Fragment>
         <div className="carousel-conatainer" role="slider">
-          <button
+          {/* <button
             className="button leftround"
             onClick={this.onPrevClickHanlder}>
             prev
-          </button>
+          </button> */}
           <div className="carousel-viewport" ref={this.carouselViewport}>
             {items && items.map(item => <Slide item={item} key={item.id} />)}
           </div>
-          <button
+          {/* <button
             className="button rightround"
             onClick={this.onNextClickHanlder}>
             next
-          </button>
+          </button> */}
         </div>
-        <div className="footer">
+        <div className="carousel-action">
           <button
             className="button leftround"
             onClick={this.onPrevClickHanlder}>
