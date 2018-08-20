@@ -67,6 +67,10 @@ class Carousel extends Component {
    */
   widthAndTimeToScroll = () => {
     const carouselViewport = this.carouselViewport.current;
+    const {
+      items: {length: len},
+    } = this.props;
+
     const {numOfSlidesToScroll} = this.state;
     if (numOfSlidesToScroll === 'full') {
       return {
@@ -74,7 +78,7 @@ class Carousel extends Component {
         timeToScroll: 400,
       };
     } else {
-      const slideWidth = 290;
+      const slideWidth = carouselViewport.scrollWidth / len + 5;
       const timeToScrollOneSlide = 200;
       return {
         widthToScroll: numOfSlidesToScroll * slideWidth,
