@@ -50,10 +50,10 @@ class Carousel extends Component {
    */
   checkNoOfSlideToScroll = () => {
     let numOfSlidesToScroll;
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth >= 321) {
       numOfSlidesToScroll = 'full';
     } else {
-      numOfSlidesToScroll = 4;
+      numOfSlidesToScroll = 1;
     }
     if (this.state.numOfSlidesToScroll !== numOfSlidesToScroll) {
       this.setState({
@@ -74,7 +74,7 @@ class Carousel extends Component {
         timeToScroll: 400,
       };
     } else {
-      const slideWidth = 250;
+      const slideWidth = 290;
       const timeToScrollOneSlide = 200;
       return {
         widthToScroll: numOfSlidesToScroll * slideWidth,
