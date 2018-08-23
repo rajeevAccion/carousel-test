@@ -2,13 +2,20 @@ import React, {Component, Fragment} from 'react';
 import throttle from 'lodash.throttle';
 import classNames from 'classnames';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
 
 import Slide from './Slide';
 import scrollTo from './animate';
 import './Carousel.css';
 
+/**
+ * React class component for carousel. Handles carousel  prev/next button click.
+ * @returns {JSX.Element}
+ */
 class Carousel extends Component {
   carouselViewport = React.createRef();
+
+  // initialize state for carousel
   state = {
     numOfSlidesToScroll: 4,
   };
@@ -34,12 +41,22 @@ class Carousel extends Component {
     this.checkNoOfSlideToScroll();
   };
 
+  /**
+   * initial setup for carousel item and register event handler for `resize` and `keydown`
+   * @method componentDidMount
+   * @returns {undefined}
+   */
   componentDidMount() {
     this.checkNoOfSlideToScroll();
     window.addEventListener('resize', throttle(this.onWindowResize, 500));
     window.addEventListener('keydown', this.onKeyDown);
   }
 
+  /**
+   * Removed register handlers on component unmount lifecycle.
+   * @method componentWillUnmount
+   * @returns {undefined}
+   */
   componentWillUnmount() {
     window.removeEventListener('resize', throttle(this.onWindowResize, 500));
     window.removeEventListener('keydown', this.onKeyDown);
@@ -63,7 +80,8 @@ class Carousel extends Component {
   };
 
   /**
-   * calculates total width to slide and transition timing
+   * calculates total width to slide and transition timing.
+   * @returns {object} - widthToScroll and timeToScroll
    */
   widthAndTimeToScroll = () => {
     const carouselViewport = this.carouselViewport.current;
@@ -88,7 +106,7 @@ class Carousel extends Component {
   };
 
   /**
-   * handle prev button click event
+   * handle prev button click event which call `scrollTo` utility method to scroll with animation
    */
   onPrevClickHanlder = () => {
     const carouselViewport = this.carouselViewport.current;
@@ -104,7 +122,7 @@ class Carousel extends Component {
   };
 
   /**
-   * handle next button click event
+   * handle next button click event which call `scrollTo` utility method to scroll with animation
    */
   onNextClickHanlder = () => {
     const carouselViewport = this.carouselViewport.current;
@@ -138,7 +156,10 @@ class Carousel extends Component {
     );
     return (
       <Fragment>
-        <div className="carousel-conatainer" role="slider">
+        <div
+          className="carousel-conatainer"
+          role="slider"
+          data-test="carousel-container">
           <button className={leftNavClasses} onClick={this.onPrevClickHanlder}>
             <FontAwesomeIcon icon="chevron-left" className="control-icon" />
           </button>
@@ -165,5 +186,14 @@ class Carousel extends Component {
     );
   }
 }
+
+Carousel.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      userImageURL: PropTypes.string.isRequired,
+      user: PropTypes.string,
+    })
+  ).isRequired,
+};
 
 export default Carousel;

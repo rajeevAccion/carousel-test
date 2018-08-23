@@ -2,14 +2,20 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faChevronRight, faChevronLeft} from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
 
 import {Carousel} from 'modules';
 import {fetchImages} from 'redux/modules';
 import './App.css';
 
+// add `faChevronRight` and `faChevronLeft` icon to be used app wide.
 library.add(faChevronRight, faChevronLeft);
 
-class App extends Component {
+/**
+ * React container component, gets data from redux store and passes to `Carousel` component.
+ * @returns {JSX.Element}
+ */
+export class App extends Component {
   // state = {
   //   images: null,
   // };
@@ -22,7 +28,12 @@ class App extends Component {
   // });
   // }
 
+  /**
+   * @method componentDidMount
+   * @returns {undefined}
+   */
   componentDidMount() {
+    // redux action fetch images for carousel
     this.props.fetchImages();
   }
   render() {
@@ -43,6 +54,20 @@ class App extends Component {
     );
   }
 }
+
+App.defaultProps = {
+  images: [],
+};
+App.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      userImageURL: PropTypes.string.isRequired,
+      user: PropTypes.string,
+    })
+  ).isRequired,
+  request: PropTypes.bool,
+  error: PropTypes.bool,
+};
 
 const mapStateToProps = ({carousel: {request, error, data}}) => ({
   request,

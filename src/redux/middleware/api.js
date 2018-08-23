@@ -1,5 +1,9 @@
 import * as TYPES from 'redux/types';
 
+/**
+ * Redux middleware - initiate network call and dispatches success action.
+ * api url, http method, success/error action passed as api payload.
+ */
 export default ({dispatch, getState}) => next => async action => {
   if (action.type !== TYPES.APIREQUEST) {
     return next(action);

@@ -5,7 +5,7 @@ import logger from 'redux-logger';
 import api from 'redux/middleware/api';
 import rootReducer from './reducers';
 
-let middlewares = [api];
+export const middlewares = [api];
 
 if (process.env.NODE_ENV !== 'production') {
   middlewares.push(logger);
